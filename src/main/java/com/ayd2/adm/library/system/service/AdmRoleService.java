@@ -3,7 +3,6 @@ package com.ayd2.adm.library.system.service;
 import com.ayd2.adm.library.system.model.AdmRole;
 import com.ayd2.adm.library.system.dto.CollectionPage;
 import com.ayd2.adm.library.system.repository.AdmRoleRepository;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -13,11 +12,14 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
-@RequiredArgsConstructor
 @Slf4j
 public class AdmRoleService {
 
     private final AdmRoleRepository roleRepository;
+
+    public AdmRoleService(AdmRoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
+    }
 
     public Optional<AdmRole> findById(Long roleId) {
         return roleRepository.findById(roleId);

@@ -4,7 +4,6 @@ import com.ayd2.adm.library.system.exception.LibException;
 import com.ayd2.adm.library.system.model.AdmRole;
 import com.ayd2.adm.library.system.repository.AdmUserRepository;
 import com.ayd2.adm.library.system.service.AdmRoleService;
-import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,11 +14,18 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final AdmUserRepository userRepository;
     private final AdmRoleService roleService;
+
+    public UserDetailsServiceImpl(
+            AdmUserRepository userRepository,
+            AdmRoleService roleService
+    ) {
+        this.userRepository = userRepository;
+        this.roleService = roleService;
+    }
 
     @SneakyThrows
     @Override

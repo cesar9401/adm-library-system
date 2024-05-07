@@ -1,7 +1,6 @@
 package com.ayd2.adm.library.system.security;
 
 import com.ayd2.adm.library.system.security.jwt.JwtAuthenticationFilter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,11 +25,18 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
 public class SecurityConfiguration {
 
     private final UserDetailsService userDetailsService;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    public SecurityConfiguration(
+            UserDetailsService userDetailsService,
+            JwtAuthenticationFilter jwtAuthenticationFilter
+    ) {
+        this.userDetailsService = userDetailsService;
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

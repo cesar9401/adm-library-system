@@ -3,7 +3,6 @@ package com.ayd2.adm.library.system.service;
 import com.ayd2.adm.library.system.exception.LibException;
 import com.ayd2.adm.library.system.model.AdmUser;
 import com.ayd2.adm.library.system.repository.AdmUserRepository;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,12 +12,16 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 @Slf4j
 public class AdmUserService {
 
     private final AdmUserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+
+    public AdmUserService(AdmUserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     public Optional<AdmUser> findById(Long userId) {
         return userRepository.findById(userId)

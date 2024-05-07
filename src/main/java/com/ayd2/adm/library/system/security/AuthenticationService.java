@@ -4,7 +4,6 @@ import com.ayd2.adm.library.system.dto.AuthReqDto;
 import com.ayd2.adm.library.system.dto.JwtResDto;
 import com.ayd2.adm.library.system.exception.LibException;
 import com.ayd2.adm.library.system.security.jwt.JwtService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,13 +13,22 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 
 @Service
-@RequiredArgsConstructor
 @Slf4j
 public class AuthenticationService {
 
     private final AuthenticationManager authenticationManager;
     private final UserDetailsService userDetailsService;
     private final JwtService jwtService;
+
+    public AuthenticationService(
+            AuthenticationManager authenticationManager,
+            UserDetailsService userDetailsService,
+            JwtService jwtService
+    ) {
+        this.authenticationManager = authenticationManager;
+        this.userDetailsService = userDetailsService;
+        this.jwtService = jwtService;
+    }
 
     public JwtResDto createToken(AuthReqDto reqDto) throws LibException {
         var authData = new UsernamePasswordAuthenticationToken(reqDto.username(), reqDto.password());

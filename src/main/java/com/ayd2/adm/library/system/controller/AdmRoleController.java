@@ -3,7 +3,6 @@ package com.ayd2.adm.library.system.controller;
 import com.ayd2.adm.library.system.dto.CollectionPage;
 import com.ayd2.adm.library.system.model.AdmRole;
 import com.ayd2.adm.library.system.service.AdmRoleService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +15,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("roles")
-@RequiredArgsConstructor
 public class AdmRoleController {
 
     private final AdmRoleService roleService;
+
+    public AdmRoleController(AdmRoleService roleService) {
+        this.roleService = roleService;
+    }
 
     @GetMapping
     public CollectionPage<List<AdmRole>, Long> findAll(Pageable pageable) {

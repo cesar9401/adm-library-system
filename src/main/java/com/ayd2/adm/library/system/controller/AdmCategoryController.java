@@ -2,7 +2,6 @@ package com.ayd2.adm.library.system.controller;
 
 import com.ayd2.adm.library.system.model.AdmCategory;
 import com.ayd2.adm.library.system.service.AdmCategoryService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,10 +13,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("categories")
-@RequiredArgsConstructor
 public class AdmCategoryController {
 
     private final AdmCategoryService categoryService;
+
+    public AdmCategoryController(AdmCategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
 
     @GetMapping("/{internalId}")
     public ResponseEntity<AdmCategory> findByInternalId(@PathVariable("internalId") Long internalId) {

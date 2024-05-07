@@ -3,7 +3,6 @@ package com.ayd2.adm.library.system.controller;
 import com.ayd2.adm.library.system.exception.LibException;
 import com.ayd2.adm.library.system.model.AdmUser;
 import com.ayd2.adm.library.system.service.AdmUserService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,10 +17,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("users")
-@RequiredArgsConstructor
 public class AdmUserController {
 
     private final AdmUserService userService;
+
+    public AdmUserController(AdmUserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping
     public ResponseEntity<List<AdmUser>> findAll() {
