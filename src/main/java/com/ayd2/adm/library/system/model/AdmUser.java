@@ -1,7 +1,5 @@
 package com.ayd2.adm.library.system.model;
 
-import com.ayd2.adm.library.system.util.LibConstant;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -16,7 +14,6 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
@@ -39,10 +36,6 @@ public class AdmUser {
 
     @Column(name = "full_name")
     private String fullName;
-
-    @JsonFormat(pattern = LibConstant.DATE_FORMAT, shape = JsonFormat.Shape.STRING)
-    @Column(name = "birthday")
-    private LocalDate birthday;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
     @JsonManagedReference("userRoles")
