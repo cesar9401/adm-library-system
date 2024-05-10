@@ -1,4 +1,4 @@
-package com.ayd2.adm.library.system.util;
+package com.ayd2.adm.library.system.demo;
 
 public class LibConstant {
 

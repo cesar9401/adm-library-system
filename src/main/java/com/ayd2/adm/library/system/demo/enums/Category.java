@@ -1,4 +1,4 @@
-package com.ayd2.adm.library.system.util.enums;
+package com.ayd2.adm.library.system.demo.enums;
 
 public enum Category {
 
