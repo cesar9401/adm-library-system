@@ -1,4 +1,4 @@
-package com.ayd2.adm.library.system.demo;
+package com.ayd2.adm.library.system.util;
 
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.datatype.hibernate5.jakarta.Hibernate5JakartaModule;

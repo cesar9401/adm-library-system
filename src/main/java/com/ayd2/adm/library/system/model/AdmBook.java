@@ -1,6 +1,6 @@
 package com.ayd2.adm.library.system.model;
 
-import com.ayd2.adm.library.system.demo.LibConstant;
+import com.ayd2.adm.library.system.util.LibConstant;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

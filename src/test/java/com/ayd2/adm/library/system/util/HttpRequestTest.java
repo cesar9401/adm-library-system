@@ -1,4 +1,4 @@
-package com.ayd2.adm.library.system.demo;
+package com.ayd2.adm.library.system.util;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

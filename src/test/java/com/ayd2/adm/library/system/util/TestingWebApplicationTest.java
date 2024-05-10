@@ -1,4 +1,4 @@
-package com.ayd2.adm.library.system.demo;
+package com.ayd2.adm.library.system.util;
 
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
