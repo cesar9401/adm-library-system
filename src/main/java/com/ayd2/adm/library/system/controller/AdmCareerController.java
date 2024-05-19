@@ -1,8 +1,10 @@
 package com.ayd2.adm.library.system.controller;
 
+import com.ayd2.adm.library.system.dto.CollectionPage;
 import com.ayd2.adm.library.system.exception.LibException;
 import com.ayd2.adm.library.system.model.AdmCareer;
 import com.ayd2.adm.library.system.service.AdmCareerService;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,9 +28,8 @@ public class AdmCareerController {
     }
 
     @GetMapping
-    public ResponseEntity<List<AdmCareer>> findAll() {
-        var careers = careerService.findAll();
-        return ResponseEntity.ok(careers);
+    public CollectionPage<List<AdmCareer>, Long> findAll(Pageable pageable) {
+        return careerService.findAll(pageable);
     }
 
     @GetMapping("/{careerId}")

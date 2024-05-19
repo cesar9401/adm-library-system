@@ -1,8 +1,10 @@
 package com.ayd2.adm.library.system.service;
 
+import com.ayd2.adm.library.system.dto.CollectionPage;
 import com.ayd2.adm.library.system.exception.LibException;
 import com.ayd2.adm.library.system.model.AdmCareer;
 import com.ayd2.adm.library.system.repository.AdmCareerRepository;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +24,9 @@ public class AdmCareerService {
         return careerRepository.findById(careerId);
     }
 
-    public List<AdmCareer> findAll() {
-        return careerRepository.findAll();
+    public CollectionPage<List<AdmCareer>, Long> findAll(Pageable pageable) {
+        var careers = careerRepository.findAll(pageable);
+        return CollectionPage.of(careers.toList(), careers.getTotalElements());
     }
 
     public AdmCareer create(AdmCareer entity) throws LibException {
