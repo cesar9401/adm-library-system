@@ -1,8 +1,10 @@
 package com.ayd2.adm.library.system.service;
 
+import com.ayd2.adm.library.system.dto.CollectionPage;
 import com.ayd2.adm.library.system.exception.LibException;
 import com.ayd2.adm.library.system.model.AdmBook;
 import com.ayd2.adm.library.system.repository.AdmBookRepository;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +24,9 @@ public class AdmBookService {
         return bookRepository.findById(bookId);
     }
 
-    public List<AdmBook> findAll() {
-        return bookRepository.findAll();
+    public CollectionPage<List<AdmBook>, Long> findAll(Pageable pageable) {
+       var books = bookRepository.findAll(pageable);
+       return CollectionPage.of(books.toList(), books.getTotalElements());
     }
 
     public AdmBook create(AdmBook entity) throws LibException {
@@ -39,7 +42,7 @@ public class AdmBookService {
         if (!entityDb.get().getBookId().equals(entity.getBookId())) throw new LibException("invalid_update");
 
         var bookByIsbn = bookRepository.findByIsbnAndBookIdNot(entity.getIsbn(), bookId);
-        if (bookByIsbn.isEmpty()) throw new LibException("isbn_already_exists");
+        if (!bookByIsbn.isEmpty()) throw new LibException("isbn_already_exists");
         return bookRepository.save(entity);
     }
 }

@@ -1,5 +1,6 @@
-package com.ayd2.adm.library.system.dto;
+package com.ayd2.adm.library.system.controller.util;
 
+import com.ayd2.adm.library.system.dto.CollectionPage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;

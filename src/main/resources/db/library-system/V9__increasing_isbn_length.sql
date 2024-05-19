@@ -1,0 +1,1 @@
+ALTER TABLE public.adm_book ALTER COLUMN isbn TYPE VARCHAR(25);
