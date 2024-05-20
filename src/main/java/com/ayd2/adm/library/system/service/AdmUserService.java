@@ -1,11 +1,13 @@
 package com.ayd2.adm.library.system.service;
 
+import com.ayd2.adm.library.system.dto.CollectionPage;
 import com.ayd2.adm.library.system.exception.LibException;
 import com.ayd2.adm.library.system.model.AdmUser;
 import com.ayd2.adm.library.system.model.AdmUserRole;
 import com.ayd2.adm.library.system.repository.AdmUserRepository;
 import com.ayd2.adm.library.system.util.enums.RoleEnum;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -41,8 +43,9 @@ public class AdmUserService {
                 .orElse(Optional.empty());
     }
 
-    public List<AdmUser> findAll() {
-        return userRepository.findAll();
+    public CollectionPage<List<AdmUser>, Long> findAll(Pageable pageable) {
+        var users = userRepository.findAll(pageable);
+        return CollectionPage.of(users.stream().toList(), users.getTotalElements());
     }
 
     public AdmUser create(AdmUser entity) throws LibException {

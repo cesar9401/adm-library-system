@@ -1,8 +1,10 @@
 package com.ayd2.adm.library.system.controller;
 
+import com.ayd2.adm.library.system.dto.CollectionPage;
 import com.ayd2.adm.library.system.exception.LibException;
 import com.ayd2.adm.library.system.model.AdmUser;
 import com.ayd2.adm.library.system.service.AdmUserService;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,9 +28,8 @@ public class AdmUserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<AdmUser>> findAll() {
-        var users = userService.findAll();
-        return new ResponseEntity<>(users, HttpStatus.OK);
+    public CollectionPage<List<AdmUser>, Long> findAll(Pageable pageable) {
+        return userService.findAll(pageable);
     }
 
     @GetMapping("/{id}")
