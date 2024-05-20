@@ -124,8 +124,8 @@ public class AdmCareerControllerTest {
     @Test
     @WithMockUser
     public void shouldReturnNotFoundWhenUpdateNonExistingCareer() throws Exception {
-        var careerId = -1L;
-        var career = new AdmCareer();
+        final var careerId = -1L;
+        final var career = new AdmCareer();
         career.setCode("XYZ");
         career.setName("Carrera XYZ");
         career.setCareerId(careerId);
