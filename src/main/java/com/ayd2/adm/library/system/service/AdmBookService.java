@@ -42,7 +42,7 @@ public class AdmBookService {
         if (!entityDb.get().getBookId().equals(entity.getBookId())) throw new LibException("invalid_update");
 
         var bookByIsbn = bookRepository.findByIsbnAndBookIdNot(entity.getIsbn(), bookId);
-        if (!bookByIsbn.isEmpty()) throw new LibException("isbn_already_exists");
+        if (bookByIsbn.isPresent()) throw new LibException("isbn_already_exists");
         return bookRepository.save(entity);
     }
 }
