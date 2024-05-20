@@ -25,6 +25,10 @@ public class AdmRoleService {
         return roleRepository.findById(roleId);
     }
 
+    public AdmRole findByRoleId(Long roleId) {
+        return roleRepository.findByRoleId(roleId);
+    }
+
     public CollectionPage<List<AdmRole>, Long> findAll(Pageable pageable) {
         log.info("Page: {}, size: {}", pageable.getPageNumber(), pageable.getPageSize());
 

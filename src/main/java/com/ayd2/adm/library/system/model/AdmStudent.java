@@ -34,7 +34,7 @@ public class AdmStudent {
 
     @JoinColumn(name = "user_id")
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private AdmUser userId;
+    private AdmUser user;
 
     @Column(name = "carnet")
     private String carnet;
