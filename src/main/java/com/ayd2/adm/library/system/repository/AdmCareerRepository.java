@@ -2,6 +2,7 @@ package com.ayd2.adm.library.system.repository;
 
 import com.ayd2.adm.library.system.model.AdmCareer;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
