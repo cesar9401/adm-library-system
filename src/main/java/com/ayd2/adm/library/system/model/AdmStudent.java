@@ -1,5 +1,7 @@
 package com.ayd2.adm.library.system.model;
 
+import com.ayd2.adm.library.system.util.LibConstant;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -39,12 +41,7 @@ public class AdmStudent {
     @Column(name = "carnet")
     private String carnet;
 
-    @Column(name = "first_name")
-    private String firstName;
-
-    @Column(name = "last_name")
-    private String lastName;
-
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = LibConstant.DATE_FORMAT)
     @Column(name = "birthday")
     private LocalDate birthday;
 }

@@ -34,6 +34,14 @@ public class AdmUserService {
         this.roleService = roleService;
     }
 
+    public Optional<AdmUser> finDuplicatedByEmail(String email, Long userId) {
+        return userRepository.findDuplicatedByEmailAndNotId(email, userId);
+    }
+
+    public Optional<AdmUser> findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
     public Optional<AdmUser> findById(Long userId) {
         return userRepository.findById(userId)
                 .map(user -> {
@@ -49,7 +57,7 @@ public class AdmUserService {
     }
 
     public AdmUser create(AdmUser entity) throws LibException {
-        var userByEmail = userRepository.findByEmail(entity.getEmail());
+        var userByEmail = this.findByEmail(entity.getEmail());
         if (userByEmail.isPresent()) throw new LibException("email_already_exists");
         entity.setPassword(passwordEncoder.encode(entity.getPassword()));
 
@@ -68,7 +76,7 @@ public class AdmUserService {
                 .status(HttpStatus.NOT_FOUND);
 
         if (!entity.getUserId().equals(userId)) throw new LibException("invalid_update");
-        var duplicatedEmail = userRepository.findDuplicatedByEmailAndNotId(entity.getEmail(), userId);
+        var duplicatedEmail = finDuplicatedByEmail(entity.getEmail(), userId);
         if (duplicatedEmail.isPresent()) throw new LibException("email_already_exists");
 
         var user = userOpt.get();

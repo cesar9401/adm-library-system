@@ -4,6 +4,7 @@ import com.ayd2.adm.library.system.exception.LibException;
 import com.ayd2.adm.library.system.model.AdmStudent;
 import com.ayd2.adm.library.system.model.AdmUserRole;
 import com.ayd2.adm.library.system.repository.AdmStudentRepository;
+import com.ayd2.adm.library.system.repository.AdmUserRepository;
 import com.ayd2.adm.library.system.util.enums.RoleEnum;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -17,13 +18,16 @@ public class AdmStudentService {
 
     private final AdmStudentRepository studentRepository;
     private final AdmRoleService roleService;
+    private final AdmUserService userService;
 
     public AdmStudentService(
             AdmStudentRepository studentRepository,
-            AdmRoleService roleService
-    ) {
+            AdmRoleService roleService,
+            AdmUserService userService,
+            AdmUserRepository admUserRepository) {
         this.studentRepository = studentRepository;
         this.roleService = roleService;
+        this.userService = userService;
     }
 
     public Optional<AdmStudent> findById(Long studentId) {
@@ -38,9 +42,12 @@ public class AdmStudentService {
         var studentByCarnet = studentRepository.findByCarnet(entity.getCarnet());
         if (studentByCarnet.isPresent()) throw new LibException("carnet_already_exists");
 
+        var user = entity.getUser();
+        var userByEmailOpt = userService.findByEmail(user.getEmail());
+        if (userByEmailOpt.isPresent()) throw new LibException("email_already_exists");
+
         // find student role
         var roleStudent = roleService.findByRoleId(RoleEnum.STUDENT.roleId);
-        var user = entity.getUser();
 
         // create role
         var userRole = new AdmUserRole();
@@ -59,6 +66,8 @@ public class AdmStudentService {
 
         var student = studentDb.get();
         var user = student.getUser();
+        var duplicatedByEmail = userService.finDuplicatedByEmail(student.getUser().getEmail(), user.getUserId());
+        if (duplicatedByEmail.isPresent()) throw new LibException("email_already_taken");
 
         entity.getUser().setUserRoles(user.getUserRoles());
         entity.getUser().setPassword(user.getPassword());
