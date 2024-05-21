@@ -59,16 +59,17 @@ class AdmBookControllerTest {
     @Test
     @WithMockUser
     public void createWithRepeatedIsbn() throws Exception {
-        var book = new AdmBook();
-        book.setIsbn("978-1682852477");
+        final var isbn = "978-1682852477";
+        final var book = new AdmBook();
+        book.setIsbn(isbn);
         book.setTitle("Computer Sciencie: Concepts and Applications");
         book.setAuthor("Tom Halt");
         book.setEditorial("Willford Press");
         book.setStock(10);
         book.setPublicationDate(LocalDate.of(2016, 5, 27));
 
-        var otherBook = new AdmBook();
-        otherBook.setIsbn("978-1682852477");
+        final var otherBook = new AdmBook();
+        otherBook.setIsbn(isbn);
         otherBook.setTitle("Harry Potter");
         otherBook.setAuthor("J.K. Rowling");
         otherBook.setEditorial("J.K. Rowling");
