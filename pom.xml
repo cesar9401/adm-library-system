@@ -14,6 +14,7 @@
     <name>adm-library-system</name>
     <description>Another library system</description>
     <properties>
+        <final.name>adm-library-system</final.name>
         <java.version>17</java.version>
     </properties>
     <dependencies>
@@ -134,6 +135,17 @@
                         </exclude>
                     </excludes>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>repackage</id>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>${final.name}</finalName>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
