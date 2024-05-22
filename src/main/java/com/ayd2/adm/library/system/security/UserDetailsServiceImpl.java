@@ -27,11 +27,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         this.roleService = roleService;
     }
 
-    @SneakyThrows
+    // @SneakyThrows
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         var userOpt = userRepository.findByEmail(username);
-        if (userOpt.isEmpty()) throw new LibException("user_by_email_not_found").status(HttpStatus.NOT_FOUND);
+        // if (userOpt.isEmpty()) throw new LibException("user_by_email_not_found").status(HttpStatus.NOT_FOUND);
+        if (userOpt.isEmpty()) throw new UsernameNotFoundException("user_by_email_not_found");
 
         var user = userOpt.get();
         var roles = roleService.findRolesByUserId(user.getUserId());

@@ -26,4 +26,9 @@ public class HelloController {
     public String helloThere() {
         return helloService.sayHello();
     }
+
+    @GetMapping("with-jwt")
+    public String helloAuthenticated() {
+        return "Hello, user!";
+    }
 }

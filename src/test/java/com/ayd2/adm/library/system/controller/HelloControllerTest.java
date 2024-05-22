@@ -2,45 +2,42 @@ package com.ayd2.adm.library.system.controller;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest
-@AutoConfigureMockMvc
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class HelloControllerTest {
 
+    @LocalServerPort
+    private int port;
+
     @Autowired
-    private MockMvc mockMvc;
+    private TestRestTemplate testRestTemplate;
 
     @Test
-    @WithMockUser
-    void helloShouldReturnMessageFromService() throws Exception {
-        this.mockMvc.perform(
-                        get("/hello/there")
-                                .accept(MediaType.TEXT_PLAIN)
-                )
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().string("Hello, there!"));
+    void shouldReturnAHelloWorld() {
+        final var url = "http://localhost:" + port + "/hello";
+        final var expected_msg = "Hello, world!";
+        assertThat(this.testRestTemplate.getForObject(url, String.class)).isEqualTo(expected_msg);
     }
 
     @Test
-    @WithMockUser
-    void helloShouldReturnHelloWorldFromController() throws Exception {
-        this.mockMvc.perform(
-                        get("/hello")
-                                .accept(MediaType.TEXT_PLAIN)
-                )
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().string("Hello, world!"));
+    void shouldReturnAHelloThere() {
+        final var url = "http://localhost:" + port + "/hello/there";
+        final var expected_msg = "Hello, there!";
+        assertThat(this.testRestTemplate.getForObject(url, String.class)).isEqualTo(expected_msg);
+    }
+
+    @Test
+    void shouldReturnUnauthorized() {
+        final var url = "http://localhost:" + port + "/hello/with-jwt";
+        ResponseEntity<String> response = this.testRestTemplate.getForEntity(url, String.class);
+        assertEquals(HttpStatus.FORBIDDEN, response.getStatusCode());
     }
 }
