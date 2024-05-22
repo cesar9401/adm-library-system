@@ -22,19 +22,4 @@ public class AdmRole {
 
     @Column(name = "description")
     private String description;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        AdmRole admRole = (AdmRole) o;
-
-        return roleId.equals(admRole.roleId);
-    }
-
-    @Override
-    public int hashCode() {
-        return roleId.hashCode();
-    }
 }

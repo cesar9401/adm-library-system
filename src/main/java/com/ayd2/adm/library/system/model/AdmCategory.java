@@ -41,19 +41,4 @@ public class AdmCategory {
     public boolean is(Category category) {
         return is(category.internalId);
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        AdmCategory that = (AdmCategory) o;
-
-        return internalId.equals(that.internalId);
-    }
-
-    @Override
-    public int hashCode() {
-        return internalId.hashCode();
-    }
 }
