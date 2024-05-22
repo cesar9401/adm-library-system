@@ -2,7 +2,6 @@ package com.ayd2.adm.library.system.model;
 
 import com.ayd2.adm.library.system.util.LibConstant;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -35,7 +34,7 @@ public class AdmStudent {
     private AdmCareer career;
 
     @JoinColumn(name = "user_id")
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     private AdmUser user;
 
     @Column(name = "carnet")

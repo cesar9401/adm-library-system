@@ -57,11 +57,15 @@ public class AdmUserService {
     }
 
     public AdmUser create(AdmUser entity) throws LibException {
+        return create(entity, RoleEnum.LIBRARIAN.roleId);
+    }
+
+    public AdmUser create(AdmUser entity, Long roleId) throws LibException {
         var userByEmail = this.findByEmail(entity.getEmail());
         if (userByEmail.isPresent()) throw new LibException("email_already_exists");
         entity.setPassword(passwordEncoder.encode(entity.getPassword()));
 
-        var librarianRole = roleService.findByRoleId(RoleEnum.LIBRARIAN.roleId);
+        var librarianRole = roleService.findByRoleId(roleId);
         var userRole = new AdmUserRole();
         userRole.setUser(entity);
         userRole.setRole(librarianRole);

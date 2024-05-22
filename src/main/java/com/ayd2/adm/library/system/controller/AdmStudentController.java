@@ -1,8 +1,10 @@
 package com.ayd2.adm.library.system.controller;
 
+import com.ayd2.adm.library.system.dto.CollectionPage;
 import com.ayd2.adm.library.system.exception.LibException;
 import com.ayd2.adm.library.system.model.AdmStudent;
 import com.ayd2.adm.library.system.service.AdmStudentService;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,8 +28,9 @@ public class AdmStudentController {
     }
 
     @GetMapping
-    public ResponseEntity<List<AdmStudent>> findAll() {
-        return ResponseEntity.ok(studentService.findAll());
+    public ResponseEntity<CollectionPage<List<AdmStudent>, Long>> findAll(Pageable pageable) {
+        var collectionPage = studentService.findAll(pageable);
+        return new ResponseEntity<>(collectionPage, HttpStatus.OK);
     }
 
     @GetMapping("/{studentId}")
@@ -40,7 +43,7 @@ public class AdmStudentController {
     @PostMapping
     public ResponseEntity<AdmStudent> create(@RequestBody AdmStudent entity) throws LibException {
         var newEntity = studentService.create(entity);
-        return new ResponseEntity<>(newEntity, HttpStatus.OK);
+        return new ResponseEntity<>(newEntity, HttpStatus.CREATED);
     }
 
     @PutMapping("/{studentId}")

@@ -8,10 +8,6 @@ public class LibException extends Exception {
 
     private HttpStatus status;
 
-    private LibException() {
-        this.status = HttpStatus.BAD_REQUEST;
-    }
-
     public LibException(String message) {
         super(message);
         this.status = HttpStatus.BAD_REQUEST;
