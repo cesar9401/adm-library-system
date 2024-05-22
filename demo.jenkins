@@ -16,7 +16,7 @@ pipeline {
                  sshagent (credentials: ['ssh_ec2_server']) {
                      sh """
                      scp -v -o StrictHostKeyChecking=no target/adm-library-system.jar ec2-user@ec2-18-204-6-108.compute-1.amazonaws.com:/home/ec2-user/
-                     ssh ec2-user@ec2-18-204-6-108.compute-1.amazonaws.com "pid=\$(ps -ef | grep 'adm-library-system.jar' | grep -v 'grep' | awk '{ printf \$2 }') ; test -z \$pid && echo 'Nothing to clean...' || kill \$pid"
+                     ssh ec2-user@ec2-18-204-6-108.compute-1.amazonaws.com "sh /home/ec2-user/stop.sh"
                      ssh ec2-user@ec2-18-204-6-108.compute-1.amazonaws.com "nohup java -jar -Dspring.profiles.active=prod /home/ec2-user/adm-library-system.jar >> library.log 2>&1&"
                      echo "done!"
                      """
