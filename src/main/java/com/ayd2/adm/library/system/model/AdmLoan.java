@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 public class AdmLoan {
 
     @Id
-    @Column(name = "loan_id")
+    @Column(name = "load_id")
     private Long loanId;
 
     @Column(name = "creator_user_id")

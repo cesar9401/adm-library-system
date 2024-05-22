@@ -1,7 +1,9 @@
 package com.ayd2.adm.library.system.service;
 
+import com.ayd2.adm.library.system.dto.CollectionPage;
 import com.ayd2.adm.library.system.model.AdmLoan;
 import com.ayd2.adm.library.system.repository.AdmLoanRepository;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,7 +22,8 @@ public class AdmLoanService {
         return loanRepository.findById(loanId);
     }
 
-    public List<AdmLoan> findAll() {
-        return loanRepository.findAll();
+    public CollectionPage<List<AdmLoan>, Long> findAll(Pageable pageable) {
+        var loans = loanRepository.findAll(pageable);
+        return CollectionPage.of(loans.stream().toList(), loans.getTotalElements());
     }
 }
